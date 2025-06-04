@@ -55,9 +55,12 @@ export default function PostsPage () {
                             Crea nuovo post
                         </Link>
 
-                        <PostsTable
+                        {/* <PostsTable
                             posts={posts}
                             handleDelete={deletePost}
+                        /> */}
+                        <PostsList
+                            posts={posts}
                         />
                     </div>
                 </div>
