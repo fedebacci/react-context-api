@@ -12,8 +12,8 @@ import PostsTable from "../../components/posts/PostsTable";
 
 
 
+import { usePosts } from "../../contexts/PostsContext";
 
-const apiUrl = 'http://localhost:3000/posts'
 
 
 
@@ -24,34 +24,8 @@ const apiUrl = 'http://localhost:3000/posts'
 
 export default function PostsPage () {
 
-    const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        axios
-            .get(apiUrl)
-            .then(response => {
-                // console.info(response.data);
-                setPosts(response.data.posts);
-            })
-            .catch(error => {
-                console.error(error);
-            })
-    }, [])
-
-
-
-    const deletePost = (id) => {
-        axios
-            .delete(apiUrl + '/' + id)
-            .then(response => {
-                console.info(response);
-                setPosts(response.data.posts);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    };
-
+    const { posts, deletePost } = usePosts();
 
 
 
