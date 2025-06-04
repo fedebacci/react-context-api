@@ -8,39 +8,14 @@ import PostsTable from "../../components/posts/PostsTable";
 
 
 
-import { usePosts } from "../../contexts/PostsContext";
-
-
-
-
-
-
 
 
 
 export default function PostsPage () {
 
-
-    const { posts, deletePost } = usePosts();
-
-
-
     return (
         <main>
             <div className="container my-3">
-
-
-                {/* <div className="row g-3">
-                    <div className="col-12">
-                        <h2 className="text-center">
-                            Posts
-                        </h2>
-                    </div>
-
-                    <PostsList posts={posts} />
-                </div> */}
-
-
                 <div className="row g-3">
                     <div className="col-12">
                         <h2 className="text-center">
@@ -51,14 +26,8 @@ export default function PostsPage () {
                             Crea nuovo post
                         </Link>
 
-                        <PostsTable
-                            posts={posts}
-                            handleDelete={deletePost}
-                        />
-
-                        {/* <PostsList
-                            posts={posts}
-                        /> */}
+                        <PostsTable />
+                        {/* <PostsList /> */}
                     </div>
                 </div>
             </div>

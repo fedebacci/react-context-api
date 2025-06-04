@@ -1,6 +1,13 @@
+
+import { usePosts } from "../../contexts/PostsContext";
+
+
 import PostTableRowElement from "./PostTableRowElement";
 
-export default function PostsTable ({ posts, handleDelete }) {
+export default function PostsTable () {
+
+    const { posts, deletePost } = usePosts();
+
     return (
         posts.length > 0 ?
         <table className="table table-bordered table-striped">
@@ -11,6 +18,9 @@ export default function PostsTable ({ posts, handleDelete }) {
                     </th>
                     <th>
                         TITLE
+                    </th>
+                    <th>
+                        TAGS
                     </th>
                     <th>
                     </th>
@@ -24,7 +34,8 @@ export default function PostsTable ({ posts, handleDelete }) {
                                 id={post.id}
                                 key={post.id}
                                 title={post.title}
-                                handleDelete={handleDelete}
+                                tags={post.tags}
+                                handleDelete={deletePost}
                             />
                         )
                     })

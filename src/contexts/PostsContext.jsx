@@ -4,6 +4,8 @@ import pages from "../assets/js/data/pages";
 
 import axios from "axios";
 
+import { useAlert } from "./AlertContext";
+
 
 const PostsContext = createContext();
 
@@ -64,7 +66,7 @@ function PostsProvider ({ children }) {
     
     const [posts, setPosts] = useState([]);
 
-    
+    const { showAlert } = useAlert();
 
     const fetchPosts = () => {
         axios
@@ -98,14 +100,15 @@ function PostsProvider ({ children }) {
     
     const createPost = (postData, handleNavigation) => {
         axios
-        .post(apiUrl, postData)
-        .then(response => {
-            setPosts(response.data.posts);
-            handleNavigation(pages.SHOWPOST(response.data.newPost.id));
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            .post(apiUrl, postData)
+            .then(response => {
+                setPosts(response.data.posts);
+                handleNavigation(pages.SHOWPOST(response.data.newPost.id));
+            })
+            .catch(error => {
+                showAlert("C'è stato un errore con la creazione del post", "danger");
+                console.error(error);
+            });
     };
 
 

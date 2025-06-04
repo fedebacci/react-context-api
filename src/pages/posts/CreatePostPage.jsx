@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 
 
+import { useAlert } from "../../contexts/AlertContext";
 import { usePosts } from "../../contexts/PostsContext";
 
 
@@ -11,10 +12,20 @@ import { usePosts } from "../../contexts/PostsContext";
 
 export default function CreatePostPage () {
 
+    const { hideAlert } = useAlert();
     const { newPostInitialData, possibleTags, createPost } = usePosts();
 
     const [ newPostData, setNewPostData ] =  useState({ ...newPostInitialData });
     const navigate = useNavigate();
+
+
+
+    useEffect(() => {
+        return () => {
+            hideAlert();
+        }
+    }, [])
+
 
 
 
