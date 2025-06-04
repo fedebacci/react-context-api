@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import pages from "../../assets/js/data/pages";
 
 
 
@@ -13,7 +11,7 @@ import { usePosts } from "../../contexts/PostsContext";
 
 export default function CreatePostPage () {
 
-    const { posts, newPostInitialData, possibleTags, createPost } = usePosts();
+    const { newPostInitialData, possibleTags, createPost } = usePosts();
 
     const [ newPostData, setNewPostData ] =  useState({ ...newPostInitialData });
     const navigate = useNavigate();
@@ -44,20 +42,8 @@ export default function CreatePostPage () {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // const newPostId = await createPost(newPostData);
-        // const newPostId = createPost(newPostData);
-        // console.debug(newPostId);
-
-        // createPost(newPostData);
         createPost(newPostData, navigate);
-
         setNewPostData({ ...newPostInitialData });
-
-        // console.debug(posts[posts.length - 1].id);
-        // console.debug(posts[posts.length - 1]);
-
-        // navigate(pages.POSTS());
-        // navigate(pages.SHOWPOST(posts[posts.length - 1].id));
     };
 
 

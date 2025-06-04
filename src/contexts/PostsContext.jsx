@@ -63,7 +63,8 @@ const possibleTags = [
 function PostsProvider ({ children }) {
     
     const [posts, setPosts] = useState([]);
-    // const navigate = useNavigate();
+
+    
 
     const fetchPosts = () => {
         axios
@@ -99,11 +100,7 @@ function PostsProvider ({ children }) {
         axios
         .post(apiUrl, postData)
         .then(response => {
-            console.log(response.data);
             setPosts(response.data.posts);
-
-
-            // handleNavigation(pages.POSTS());
             handleNavigation(pages.SHOWPOST(response.data.newPost.id));
         })
         .catch(error => {
