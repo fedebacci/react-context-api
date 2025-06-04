@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+
 import pages from "../assets/js/data/pages";
 
 import axios from "axios";
@@ -62,14 +63,12 @@ const possibleTags = [
 function PostsProvider ({ children }) {
     
     const [posts, setPosts] = useState([]);
+    // const navigate = useNavigate();
 
     const fetchPosts = () => {
-        console.debug("fetchPosts", posts);
-
         axios
             .get(apiUrl)
             .then(response => {
-                console.info("RISPOSTA DI: fetchPosts", response.data);
                 setPosts(response.data.posts);
             })
             .catch(error => {
@@ -88,7 +87,6 @@ function PostsProvider ({ children }) {
         axios
             .delete(apiUrl + '/' + id)
             .then(response => {
-                console.info("RISPOSTA DI: deletePost", response.data);
                 setPosts(response.data.posts);
             })
             .catch(error => {
@@ -97,20 +95,20 @@ function PostsProvider ({ children }) {
     };
 
     
-    const createPost = (postData) => {
-        console.log(postData);
+    const createPost = (postData, handleNavigation) => {
         axios
         .post(apiUrl, postData)
         .then(response => {
-                console.log("Risposta di: createPost", response.data);
-                setPosts(response.data.posts);
-                
-                // setNewPostData({ ...newPostInitialData });
-                // navigate(pages.SHOWPOST(response.data.newPost.id));
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            console.log(response.data);
+            setPosts(response.data.posts);
+
+
+            // handleNavigation(pages.POSTS());
+            handleNavigation(pages.SHOWPOST(response.data.newPost.id));
+        })
+        .catch(error => {
+            console.error(error);
+        });
     };
 
 

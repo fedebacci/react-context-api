@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
 
 import pages from "../../assets/js/data/pages";
 
-
-// const apiUrl = 'http://localhost:3000/posts';
 
 
 import { usePosts } from "../../contexts/PostsContext";
@@ -14,12 +11,9 @@ import { usePosts } from "../../contexts/PostsContext";
 
 
 
-
-
-
 export default function CreatePostPage () {
 
-    const { newPostInitialData, possibleTags, fetchPosts, createPost } = usePosts();
+    const { posts, newPostInitialData, possibleTags, createPost } = usePosts();
 
     const [ newPostData, setNewPostData ] =  useState({ ...newPostInitialData });
     const navigate = useNavigate();
@@ -50,24 +44,20 @@ export default function CreatePostPage () {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        createPost(newPostData);
+        // const newPostId = await createPost(newPostData);
+        // const newPostId = createPost(newPostData);
+        // console.debug(newPostId);
+
+        // createPost(newPostData);
+        createPost(newPostData, navigate);
+
         setNewPostData({ ...newPostInitialData });
-        // fetchPosts();
-        // navigate(pages.SHOWPOST(response.data.newPost.id));
-        navigate(pages.POSTS());
 
+        // console.debug(posts[posts.length - 1].id);
+        // console.debug(posts[posts.length - 1]);
 
-
-
-        // axios
-        //     .post(apiUrl, newPostData)
-        //     .then(response => {
-        //         setNewPostData({ ...newPostInitialData });
-        //         navigate(pages.SHOWPOST(response.data.newPost.id));
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
+        // navigate(pages.POSTS());
+        // navigate(pages.SHOWPOST(posts[posts.length - 1].id));
     };
 
 

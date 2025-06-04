@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 import { Link } from "react-router-dom";
-import pages from "../../assets/js/data/pages";
 
 
 
@@ -59,7 +55,7 @@ export default function PostsPage () {
                             posts={posts}
                             handleDelete={deletePost}
                         />
-                        
+
                         {/* <PostsList
                             posts={posts}
                         /> */}
