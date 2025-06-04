@@ -22,6 +22,7 @@ export default function PostsTable ({ posts, handleDelete }) {
                         return (
                             <PostTableRowElement 
                                 id={post.id}
+                                key={post.id}
                                 title={post.title}
                                 handleDelete={handleDelete}
                             />

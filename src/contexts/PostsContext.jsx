@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import pages from "../assets/js/data/pages";
+
 import axios from "axios";
 
 
@@ -6,35 +8,105 @@ const PostsContext = createContext();
 
 
 const apiUrl = 'http://localhost:3000/posts';
+const newPostInitialData = {
+    title: "",
+    image: "",
+    content: "",
+    tags: [],
+};
+const possibleTags = [
+    {
+        id: 1, 
+        text: "Antipasti"
+    },
+    {
+        id: 2, 
+        text: "Primi piatti"
+    },
+    {
+        id: 3, 
+        text: "Dolci veloci"
+    },
+    {
+        id: 4, 
+        text: "Ricette veloci"
+    },
+    {
+        id: 5, 
+        text: "Dolci"
+    },
+    {
+        id: 6, 
+        text: "Dolci al cioccolato"
+    },
+    {
+        id: 7, 
+        text: "Ricette vegetariane"
+    },
+    {
+        id: 8, 
+        text: "Torte"
+    },
+    {
+        id: 9, 
+        text: "Ricette al forno"
+    },
+];
+
+
+
+
+
 
 
 function PostsProvider ({ children }) {
-
-    // console.debug(`apiUrl in PostsProvider: ${apiUrl}`);
-    
     
     const [posts, setPosts] = useState([]);
-    // console.debug(`posts in PostsProvider: `, posts);
-    
-    useEffect(() => {
-        // console.debug(`useEffect PostsProvider PARTITO`);
+
+    const fetchPosts = () => {
+        console.debug("fetchPosts", posts);
+
         axios
             .get(apiUrl)
             .then(response => {
-                // console.info(response.data);
+                console.info("RISPOSTA DI: fetchPosts", response.data);
                 setPosts(response.data.posts);
             })
             .catch(error => {
                 console.error(error);
             })
+    }
+
+
+    useEffect(() => {
+        fetchPosts();
     }, [])
+
+
 
     const deletePost = (id) => {
         axios
             .delete(apiUrl + '/' + id)
             .then(response => {
-                console.info(response);
+                console.info("RISPOSTA DI: deletePost", response.data);
                 setPosts(response.data.posts);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    
+    const createPost = (postData) => {
+        console.log(postData);
+        axios
+        .post(apiUrl, postData)
+        .then(response => {
+                console.log("Risposta di: createPost", response.data);
+                setPosts(response.data.posts);
+                
+                // setNewPostData({ ...newPostInitialData });
+                // navigate(pages.SHOWPOST(response.data.newPost.id));
             })
             .catch(error => {
                 console.error(error);
@@ -45,10 +117,16 @@ function PostsProvider ({ children }) {
 
     const postsHandler = {
         posts,
-        deletePost
+        newPostInitialData,
+        possibleTags,
+        fetchPosts,
+        deletePost,
+        createPost
     }
 
-    console.debug(`postsHandler in PostsProvider`, postsHandler);
+
+
+
 
     return (
         <PostsContext.Provider value={postsHandler}>
